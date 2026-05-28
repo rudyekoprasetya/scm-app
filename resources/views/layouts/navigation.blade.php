@@ -9,38 +9,38 @@
                 </div>
 
                 <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">{{ __('Dashboard') }}</x-nav-link>
+                    <x-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"><i class="fa-solid fa-gauge-high mr-1.5"></i>{{ __('Dashboard') }}</x-nav-link>
 
                     @can('view-suppliers')
-                    <x-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.*')">{{ __('Supplier') }}</x-nav-link>
+                    <x-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.*')"><i class="fa-solid fa-handshake mr-1.5"></i>{{ __('Supplier') }}</x-nav-link>
                     @endcan
 
                     @can('view-purchase-orders')
-                    <x-nav-link :href="route('purchase-orders.index')" :active="request()->routeIs('purchase-orders.*')">{{ __('PO') }}</x-nav-link>
+                    <x-nav-link :href="route('purchase-orders.index')" :active="request()->routeIs('purchase-orders.*')"><i class="fa-solid fa-file-invoice mr-1.5"></i>{{ __('PO') }}</x-nav-link>
                     @endcan
 
                     @can('view-products')
-                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">{{ __('Produk') }}</x-nav-link>
+                    <x-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')"><i class="fa-solid fa-box mr-1.5"></i>{{ __('Produk') }}</x-nav-link>
                     @endcan
 
                     @can('view-categories')
-                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">{{ __('Kategori') }}</x-nav-link>
+                    <x-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')"><i class="fa-solid fa-tags mr-1.5"></i>{{ __('Kategori') }}</x-nav-link>
                     @endcan
 
                     @can('view-stock')
-                    <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.*')">{{ __('Stok') }}</x-nav-link>
+                    <x-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.*')"><i class="fa-solid fa-warehouse mr-1.5"></i>{{ __('Stok') }}</x-nav-link>
                     @endcan
 
                     @can('view-orders')
-                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">{{ __('Pesanan') }}</x-nav-link>
+                    <x-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')"><i class="fa-solid fa-cart-shopping mr-1.5"></i>{{ __('Pesanan') }}</x-nav-link>
                     @endcan
 
                     @can('view-shipments')
-                    <x-nav-link :href="route('shipments.index')" :active="request()->routeIs('shipments.*') || request()->routeIs('tracking.*')">{{ __('Kirim') }}</x-nav-link>
+                    <x-nav-link :href="route('shipments.index')" :active="request()->routeIs('shipments.*') || request()->routeIs('tracking.*')"><i class="fa-solid fa-truck mr-1.5"></i>{{ __('Kirim') }}</x-nav-link>
                     @endcan
 
                     @can('view-users')
-                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*') || request()->routeIs('roles.*')">{{ __('Pengguna') }}</x-nav-link>
+                    <x-nav-link :href="route('users.index')" :active="request()->routeIs('users.*') || request()->routeIs('roles.*')"><i class="fa-solid fa-users mr-1.5"></i>{{ __('Pengguna') }}</x-nav-link>
                     @endcan
                 </div>
             </div>
@@ -80,15 +80,15 @@
 
     <div :class="{'block': open, 'hidden': ! open}" class="hidden sm:hidden">
         <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')">{{ __('Dashboard') }}</x-responsive-nav-link>
-            @can('view-suppliers')<x-responsive-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.*')">{{ __('Supplier') }}</x-responsive-nav-link>@endcan
-            @can('view-purchase-orders')<x-responsive-nav-link :href="route('purchase-orders.index')" :active="request()->routeIs('purchase-orders.*')">{{ __('Purchase Order') }}</x-responsive-nav-link>@endcan
-            @can('view-products')<x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')">{{ __('Produk') }}</x-responsive-nav-link>@endcan
-            @can('view-categories')<x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')">{{ __('Kategori') }}</x-responsive-nav-link>@endcan
-            @can('view-stock')<x-responsive-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.*')">{{ __('Stok') }}</x-responsive-nav-link>@endcan
-            @can('view-orders')<x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')">{{ __('Pesanan') }}</x-responsive-nav-link>@endcan
-            @can('view-shipments')<x-responsive-nav-link :href="route('shipments.index')" :active="request()->routeIs('shipments.*')">{{ __('Pengiriman') }}</x-responsive-nav-link>@endcan
-            @can('view-users')<x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')">{{ __('Pengguna') }}</x-responsive-nav-link>@endcan
+            <x-responsive-nav-link :href="route('dashboard')" :active="request()->routeIs('dashboard')"><i class="fa-solid fa-gauge-high mr-2"></i>{{ __('Dashboard') }}</x-responsive-nav-link>
+            @can('view-suppliers')<x-responsive-nav-link :href="route('suppliers.index')" :active="request()->routeIs('suppliers.*')"><i class="fa-solid fa-handshake mr-2"></i>{{ __('Supplier') }}</x-responsive-nav-link>@endcan
+            @can('view-purchase-orders')<x-responsive-nav-link :href="route('purchase-orders.index')" :active="request()->routeIs('purchase-orders.*')"><i class="fa-solid fa-file-invoice mr-2"></i>{{ __('Purchase Order') }}</x-responsive-nav-link>@endcan
+            @can('view-products')<x-responsive-nav-link :href="route('products.index')" :active="request()->routeIs('products.*')"><i class="fa-solid fa-box mr-2"></i>{{ __('Produk') }}</x-responsive-nav-link>@endcan
+            @can('view-categories')<x-responsive-nav-link :href="route('categories.index')" :active="request()->routeIs('categories.*')"><i class="fa-solid fa-tags mr-2"></i>{{ __('Kategori') }}</x-responsive-nav-link>@endcan
+            @can('view-stock')<x-responsive-nav-link :href="route('stock.index')" :active="request()->routeIs('stock.*')"><i class="fa-solid fa-warehouse mr-2"></i>{{ __('Stok') }}</x-responsive-nav-link>@endcan
+            @can('view-orders')<x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')"><i class="fa-solid fa-cart-shopping mr-2"></i>{{ __('Pesanan') }}</x-responsive-nav-link>@endcan
+            @can('view-shipments')<x-responsive-nav-link :href="route('shipments.index')" :active="request()->routeIs('shipments.*')"><i class="fa-solid fa-truck mr-2"></i>{{ __('Pengiriman') }}</x-responsive-nav-link>@endcan
+            @can('view-users')<x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')"><i class="fa-solid fa-users mr-2"></i>{{ __('Pengguna') }}</x-responsive-nav-link>@endcan
         </div>
         <div class="pt-4 pb-1 border-t border-gray-200">
             <div class="px-4">
