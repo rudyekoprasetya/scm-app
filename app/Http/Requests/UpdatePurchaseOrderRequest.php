@@ -8,7 +8,7 @@ class UpdatePurchaseOrderRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('update-purchase-orders');
+        return $this->user()->can('edit-purchase-orders');
     }
 
     public function rules(): array

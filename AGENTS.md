@@ -35,6 +35,8 @@ Clears config cache and runs PHPUnit tests with SQLite in-memory database.
 ## Key Packages Installed
 - laravel/breeze: Authentication scaffolding (Blade + Tailwind)
 - spatie/laravel-permission: Role-based access control (RBAC)
+- barryvdh/laravel-dompdf: PDF export
+- Font Awesome 6.5.1 (CDN): Icons in navigation & dashboard
 
 ## Directory Structure
 - `app/` - Application code (Models, Controllers, Services, Middleware)
@@ -142,9 +144,6 @@ Clears config cache and runs PHPUnit tests with SQLite in-memory database.
 12. Dashboard with role-specific views (admin/manager, warehouse, courier)
 
 ## Next Steps for Future Development
-- Add Form Request authorization (policy/gate-based)
-- Write unit and feature tests for SCM workflows
-- Add export (PDF/Excel) for reports
 - Add notification/email alerts for low stock
 - Add API endpoints for mobile/logistics
 - Add real-time dashboard with charts

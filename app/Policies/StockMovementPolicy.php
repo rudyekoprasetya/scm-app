@@ -11,8 +11,13 @@ class StockMovementPolicy
         return $user->can('view-stock');
     }
 
-    public function create(User $user): bool
+    public function createIn(User $user): bool
     {
-        return $user->can('create-stock');
+        return $user->can('create-stock-in');
+    }
+
+    public function createOut(User $user): bool
+    {
+        return $user->can('create-stock-out');
     }
 }

@@ -23,7 +23,7 @@ class CategoryPolicy
 
     public function update(User $user): bool
     {
-        return $user->can('update-categories');
+        return $user->can('edit-categories');
     }
 
     public function delete(User $user): bool

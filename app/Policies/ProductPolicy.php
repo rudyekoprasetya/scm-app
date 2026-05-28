@@ -23,7 +23,7 @@ class ProductPolicy
 
     public function update(User $user): bool
     {
-        return $user->can('update-products');
+        return $user->can('edit-products');
     }
 
     public function delete(User $user): bool

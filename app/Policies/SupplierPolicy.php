@@ -23,7 +23,7 @@ class SupplierPolicy
 
     public function update(User $user): bool
     {
-        return $user->can('update-suppliers');
+        return $user->can('edit-suppliers');
     }
 
     public function delete(User $user): bool

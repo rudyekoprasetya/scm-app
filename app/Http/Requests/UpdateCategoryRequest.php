@@ -8,7 +8,7 @@ class UpdateCategoryRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('update-categories');
+        return $this->user()->can('edit-categories');
     }
 
     public function rules(): array

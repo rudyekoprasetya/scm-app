@@ -23,7 +23,7 @@ class ShipmentPolicy
 
     public function update(User $user): bool
     {
-        return $user->can('update-shipments');
+        return $user->can('edit-shipments');
     }
 
     public function delete(User $user): bool

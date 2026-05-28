@@ -23,7 +23,7 @@ class PurchaseOrderPolicy
 
     public function update(User $user): bool
     {
-        return $user->can('update-purchase-orders');
+        return $user->can('edit-purchase-orders');
     }
 
     public function delete(User $user): bool

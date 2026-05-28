@@ -23,7 +23,7 @@ class OrderPolicy
 
     public function update(User $user): bool
     {
-        return $user->can('update-orders');
+        return $user->can('edit-orders');
     }
 
     public function delete(User $user): bool

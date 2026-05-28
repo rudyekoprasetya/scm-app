@@ -8,7 +8,7 @@ class UpdateShipmentRequest extends FormRequest
 {
     public function authorize(): bool
     {
-        return $this->user()->can('update-shipments');
+        return $this->user()->can('edit-shipments');
     }
 
     public function rules(): array
