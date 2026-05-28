@@ -87,4 +87,38 @@ class StockMovementController extends Controller
 
         return view('stock.alerts', compact('products'));
     }
+
+    public function exportPdf()
+    {
+        $products = Product::with('category')
+            ->where('is_active', true)
+            ->whereColumn('stock_quantity', '<=', 'low_stock_threshold')
+            ->orderBy('stock_quantity')
+            ->get();
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.stock', compact('products'));
+        return $pdf->download('laporan-stok-'.now()->format('Ymd').'.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $products = Product::with('category')
+            ->where('is_active', true)
+            ->whereColumn('stock_quantity', '<=', 'low_stock_threshold')
+            ->orderBy('stock_quantity')
+            ->get();
+        $filename = 'laporan-stok-'.now()->format('Ymd').'.csv';
+        $headers = [['No', 'SKU', 'Produk', 'Kategori', 'Stok', 'Threshold', 'Status']];
+        foreach ($products as $i => $p) {
+            $headers[] = [$i + 1, $p->sku, $p->name, $p->category->name ?? '', $p->stock_quantity, $p->low_stock_threshold, $p->stock_quantity <= $p->low_stock_threshold ? 'Menipis' : 'Aman'];
+        }
+        $callback = function () use ($headers) {
+            $file = fopen('php://output', 'w');
+            foreach ($headers as $row) { fputcsv($file, $row); }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$filename",
+        ]);
+    }
 }

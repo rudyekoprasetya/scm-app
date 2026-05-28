@@ -52,4 +52,30 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index')->with('success', 'Produk berhasil dihapus.');
     }
+
+    public function exportPdf()
+    {
+        $products = Product::with('category')->latest()->get();
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.products', compact('products'));
+        return $pdf->download('laporan-produk-'.now()->format('Ymd').'.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $products = Product::with('category')->latest()->get();
+        $filename = 'laporan-produk-'.now()->format('Ymd').'.csv';
+        $headers = [['No', 'SKU', 'Nama', 'Kategori', 'Stok', 'Satuan', 'Harga Beli', 'Harga Jual', 'Status']];
+        foreach ($products as $i => $p) {
+            $headers[] = [$i + 1, $p->sku, $p->name, $p->category->name ?? '', $p->stock_quantity, $p->unit, $p->purchase_price, $p->selling_price, $p->is_active ? 'Aktif' : 'Nonaktif'];
+        }
+        $callback = function () use ($headers) {
+            $file = fopen('php://output', 'w');
+            foreach ($headers as $row) { fputcsv($file, $row); }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$filename",
+        ]);
+    }
 }

@@ -182,4 +182,30 @@ class OrderController extends Controller
         $order->update(['status' => 'cancelled']);
         return back()->with('success', 'Pesanan dibatalkan dan stok dikembalikan.');
     }
+
+    public function exportPdf()
+    {
+        $orders = Order::latest()->get();
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.orders', compact('orders'));
+        return $pdf->download('laporan-pesanan-'.now()->format('Ymd').'.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $orders = Order::latest()->get();
+        $filename = 'laporan-pesanan-'.now()->format('Ymd').'.csv';
+        $headers = [['No', 'No. Order', 'Pelanggan', 'Tgl Order', 'Subtotal', 'Pajak', 'Ongkir', 'Total', 'Status']];
+        foreach ($orders as $i => $order) {
+            $headers[] = [$i + 1, $order->order_number, $order->customer_name, $order->order_date->format('d/m/Y'), $order->subtotal, $order->tax, $order->shipping_cost, $order->total, $order->status];
+        }
+        $callback = function () use ($headers) {
+            $file = fopen('php://output', 'w');
+            foreach ($headers as $row) { fputcsv($file, $row); }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$filename",
+        ]);
+    }
 }

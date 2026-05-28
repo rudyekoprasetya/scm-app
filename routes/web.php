@@ -38,10 +38,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Supplier Management
     Route::middleware('role:admin,manager,warehouse')->group(function () {
+        Route::get('suppliers/export/pdf', [SupplierController::class, 'exportPdf'])->name('suppliers.export.pdf');
+        Route::get('suppliers/export/excel', [SupplierController::class, 'exportExcel'])->name('suppliers.export.excel');
         Route::resource('suppliers', SupplierController::class);
     });
 
     // Purchase Orders (supplier can view/create, warehouse can receive, admin/manager can approve)
+    Route::get('purchase-orders/export/pdf', [PurchaseOrderController::class, 'exportPdf'])->name('purchase-orders.export.pdf');
+    Route::get('purchase-orders/export/excel', [PurchaseOrderController::class, 'exportExcel'])->name('purchase-orders.export.excel');
     Route::resource('purchase-orders', PurchaseOrderController::class);
     Route::prefix('purchase-orders/{purchaseOrder}')->name('purchase-orders.')->group(function () {
         Route::patch('send', [PurchaseOrderController::class, 'send'])->name('send');
@@ -54,6 +58,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     // Categories & Products (admin, manager, warehouse)
     Route::middleware('role:admin,manager,warehouse')->group(function () {
         Route::resource('categories', CategoryController::class);
+        Route::get('products/export/pdf', [ProductController::class, 'exportPdf'])->name('products.export.pdf');
+        Route::get('products/export/excel', [ProductController::class, 'exportExcel'])->name('products.export.excel');
         Route::resource('products', ProductController::class);
     });
 
@@ -65,10 +71,14 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/stock/out/{product?}', [StockMovementController::class, 'createOut'])->name('stock.out');
         Route::post('/stock/out', [StockMovementController::class, 'storeOut'])->name('stock.store-out');
         Route::get('/stock/alerts', [StockMovementController::class, 'alerts'])->name('stock.alerts');
+        Route::get('/stock/export/pdf', [StockMovementController::class, 'exportPdf'])->name('stock.export.pdf');
+        Route::get('/stock/export/excel', [StockMovementController::class, 'exportExcel'])->name('stock.export.excel');
     });
 
     // Order Management
     Route::middleware('role:admin,manager')->group(function () {
+        Route::get('orders/export/pdf', [OrderController::class, 'exportPdf'])->name('orders.export.pdf');
+        Route::get('orders/export/excel', [OrderController::class, 'exportExcel'])->name('orders.export.excel');
         Route::resource('orders', OrderController::class);
         Route::prefix('orders/{order}')->name('orders.')->group(function () {
             Route::patch('confirm', [OrderController::class, 'confirm'])->name('confirm');
@@ -82,6 +92,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // Shipments (managed by courier)
     Route::middleware('role:admin,courier')->group(function () {
+        Route::get('shipments/export/pdf', [ShipmentController::class, 'exportPdf'])->name('shipments.export.pdf');
+        Route::get('shipments/export/excel', [ShipmentController::class, 'exportExcel'])->name('shipments.export.excel');
         Route::resource('shipments', ShipmentController::class);
         Route::prefix('shipments/{shipment}')->name('shipments.')->group(function () {
             Route::patch('pick-up', [ShipmentController::class, 'pickUp'])->name('pick-up');

@@ -121,4 +121,30 @@ class ShipmentController extends Controller
             'timestamp' => now(),
         ]);
     }
+
+    public function exportPdf()
+    {
+        $shipments = Shipment::latest()->get();
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.shipments', compact('shipments'));
+        return $pdf->download('laporan-pengiriman-'.now()->format('Ymd').'.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $shipments = Shipment::latest()->get();
+        $filename = 'laporan-pengiriman-'.now()->format('Ymd').'.csv';
+        $headers = [['No', 'No. Kirim', 'No. Order', 'Kurir', 'Resi', 'Ongkir', 'Asal', 'Tujuan', 'Status']];
+        foreach ($shipments as $i => $s) {
+            $headers[] = [$i + 1, $s->shipment_number, $s->order->order_number ?? '-', $s->carrier, $s->tracking_number ?? '-', $s->shipping_cost, $s->origin ?? '-', $s->destination ?? '-', $s->status];
+        }
+        $callback = function () use ($headers) {
+            $file = fopen('php://output', 'w');
+            foreach ($headers as $row) { fputcsv($file, $row); }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$filename",
+        ]);
+    }
 }

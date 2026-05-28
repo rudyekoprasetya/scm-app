@@ -9,9 +9,11 @@
                 <div class="mb-4 px-4 py-2 bg-green-100 border border-green-400 text-green-700 rounded">{{ session('success') }}</div>
             @endif
 
-            <div class="mb-4 flex gap-2">
+            <div class="mb-4 flex gap-2 flex-wrap">
                 <a href="{{ route('products.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">Tambah Produk</a>
                 <a href="{{ route('categories.index') }}" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300 rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest hover:bg-gray-50">Kelola Kategori</a>
+                <a href="{{ route('products.export.pdf') }}" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500"><i class="fa-solid fa-file-pdf mr-1"></i>PDF</a>
+                <a href="{{ route('products.export.excel') }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500"><i class="fa-solid fa-file-excel mr-1"></i>Excel</a>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">

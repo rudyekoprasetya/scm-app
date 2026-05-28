@@ -169,4 +169,30 @@ class PurchaseOrderController extends Controller
         $purchaseOrder->update(['status' => 'cancelled']);
         return back()->with('success', 'PO berhasil dibatalkan.');
     }
+
+    public function exportPdf()
+    {
+        $purchaseOrders = PurchaseOrder::with('supplier')->latest()->get();
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('exports.purchase-orders', compact('purchaseOrders'));
+        return $pdf->download('laporan-po-'.now()->format('Ymd').'.pdf');
+    }
+
+    public function exportExcel()
+    {
+        $purchaseOrders = PurchaseOrder::with('supplier')->latest()->get();
+        $filename = 'laporan-po-'.now()->format('Ymd').'.csv';
+        $headers = [['No', 'No. PO', 'Supplier', 'Tgl Order', 'Subtotal', 'Pajak', 'Total', 'Status']];
+        foreach ($purchaseOrders as $i => $po) {
+            $headers[] = [$i + 1, $po->po_number, $po->supplier->name ?? '', $po->order_date->format('d/m/Y'), $po->subtotal, $po->tax, $po->total, $po->status];
+        }
+        $callback = function () use ($headers) {
+            $file = fopen('php://output', 'w');
+            foreach ($headers as $row) { fputcsv($file, $row); }
+            fclose($file);
+        };
+        return response()->stream($callback, 200, [
+            'Content-Type' => 'text/csv',
+            'Content-Disposition' => "attachment; filename=$filename",
+        ]);
+    }
 }

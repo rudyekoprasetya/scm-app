@@ -12,8 +12,10 @@
                 <div class="mb-4 px-4 py-2 bg-red-100 border border-red-400 text-red-700 rounded">{{ session('error') }}</div>
             @endif
 
-            <div class="mb-4">
+            <div class="mb-4 flex gap-2">
                 <a href="{{ route('orders.create') }}" class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700">Buat Pesanan</a>
+                <a href="{{ route('orders.export.pdf') }}" class="inline-flex items-center px-4 py-2 bg-red-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-red-500"><i class="fa-solid fa-file-pdf mr-1"></i>PDF</a>
+                <a href="{{ route('orders.export.excel') }}" class="inline-flex items-center px-4 py-2 bg-green-600 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-green-500"><i class="fa-solid fa-file-excel mr-1"></i>Excel</a>
             </div>
 
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
