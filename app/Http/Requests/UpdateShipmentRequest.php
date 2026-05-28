@@ -6,9 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateShipmentRequest extends FormRequest
 {
-    public function authorize(): true
+    public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('update-shipments');
     }
 
     public function rules(): array

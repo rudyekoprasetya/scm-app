@@ -6,9 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateCategoryRequest extends FormRequest
 {
-    public function authorize(): true
+    public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('update-categories');
     }
 
     public function rules(): array

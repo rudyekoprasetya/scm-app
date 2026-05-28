@@ -6,9 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StoreSupplierRequest extends FormRequest
 {
-    public function authorize(): true
+    public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('create-suppliers');
     }
 
     public function rules(): array

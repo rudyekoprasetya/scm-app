@@ -6,9 +6,9 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class StorePurchaseOrderRequest extends FormRequest
 {
-    public function authorize(): true
+    public function authorize(): bool
     {
-        return true;
+        return $this->user()->can('create-purchase-orders');
     }
 
     public function rules(): array
