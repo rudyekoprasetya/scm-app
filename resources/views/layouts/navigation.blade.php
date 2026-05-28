@@ -56,6 +56,15 @@
                     </template>
                 </button>
 
+                {{-- Notification Bell --}}
+                <a href="{{ route('notifications.index') }}" class="relative mr-4 p-2 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none transition duration-150 ease-in-out" title="Notifikasi">
+                    <i class="fa-solid fa-bell text-lg"></i>
+                    @php $unreadCount = auth()->user()->unreadNotifications->count(); @endphp
+                    @if($unreadCount > 0)
+                        <span class="absolute -top-0.5 -right-0.5 inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-500 rounded-full min-w-[18px] h-[18px]">{{ $unreadCount > 99 ? '99+' : $unreadCount }}</span>
+                    @endif
+                </a>
+
                 <x-dropdown align="right" width="48">
                     <x-slot name="trigger">
                         <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800 hover:text-gray-700 dark:hover:text-gray-200 focus:outline-none transition ease-in-out duration-150">
@@ -107,6 +116,15 @@
             @can('view-orders')<x-responsive-nav-link :href="route('orders.index')" :active="request()->routeIs('orders.*')"><i class="fa-solid fa-cart-shopping mr-2"></i>{{ __('Pesanan') }}</x-responsive-nav-link>@endcan
             @can('view-shipments')<x-responsive-nav-link :href="route('shipments.index')" :active="request()->routeIs('shipments.*')"><i class="fa-solid fa-truck mr-2"></i>{{ __('Pengiriman') }}</x-responsive-nav-link>@endcan
             @can('view-users')<x-responsive-nav-link :href="route('users.index')" :active="request()->routeIs('users.*')"><i class="fa-solid fa-users mr-2"></i>{{ __('Pengguna') }}</x-responsive-nav-link>@endcan
+        </div>
+        <div class="pt-2 pb-1 border-t border-gray-200 dark:border-gray-700">
+            <x-responsive-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.*')">
+                <i class="fa-solid fa-bell mr-2"></i>{{ __('Notifikasi') }}
+                @php $unreadCount = auth()->user()->unreadNotifications->count(); @endphp
+                @if($unreadCount > 0)
+                    <span class="ml-auto inline-flex items-center justify-center px-1.5 py-0.5 text-xs font-bold leading-none text-white bg-red-500 rounded-full">{{ $unreadCount > 99 ? '99+' : $unreadCount }}</span>
+                @endif
+            </x-responsive-nav-link>
         </div>
         <div class="pt-4 pb-1 border-t border-gray-200 dark:border-gray-700">
             <div class="px-4">

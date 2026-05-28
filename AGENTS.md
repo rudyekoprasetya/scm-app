@@ -37,6 +37,16 @@ Clears config cache and runs PHPUnit tests with SQLite in-memory database.
 - spatie/laravel-permission: Role-based access control (RBAC)
 - barryvdh/laravel-dompdf: PDF export
 - Font Awesome 6.5.1 (CDN): Icons in navigation & dashboard
+- Notifications: Laravel database notifications (notifications table via `php artisan notifications:table`)
+
+## Notifications (Low Stock Alert)
+- `app/Notifications/LowStockNotification.php` — Sends via `database` + `mail` channels
+- `app/Console/Commands/CheckLowStock.php` — Scans products where `stock_quantity <= low_stock_threshold`, notifies `admin`/`manager`/`warehouse` roles
+- Scheduled hourly via `routes/console.php`: `Schedule::command('app:check-low-stock')->hourly()`
+- Manual run: `php artisan app:check-low-stock`
+- Bell icon in navigation top-bar with red unread badge (uses `auth()->user()->unreadNotifications->count()` directly in view)
+- Notification list page at `/notifications` with mark-as-read / mark-all-as-read actions
+- Mail uses `log` driver by default (`.env: MAIL_MAILER=log`)
 
 ## Directory Structure
 - `app/` - Application code (Models, Controllers, Services, Middleware)
